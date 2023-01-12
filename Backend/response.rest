@@ -1,0 +1,29 @@
+# GET USERS
+GET http://localhost:5000/api/v1/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2M2JlNzcyNjdmN2ZiNzIyNzQ4YWNmYzIiLCJ1c2VybmFtZSI6InVzZXIgMSIsImVtYWlsIjoidXNlcjFAbWFpbC5jb20iLCJpYXQiOjE2NzM1MDQwMzQsImV4cCI6MTY3MzUwNDA2NH0.b6igBLmMURYshk4wqWAPq4TmZup6qZriYkdelqo2Nds
+###
+# REGISTER
+POST http://localhost:5000/api/v1/user
+Content-Type: application/json
+
+{
+    "username":"user 1",
+    "email":"user1@mail.com",
+    "password":"123"
+}
+###
+# LOGIN
+POST http://localhost:5000/api/v1/user/login
+Content-Type: application/json
+
+{
+    "email":"user1@mail.com",
+    "password":"123"
+}
+###
+# GET REFRESH
+GET http://localhost:5000/api/v1/user/refresh
+###
+
+# DELETE REFRESH
+DELETE http://localhost:5000/api/v1/user/logout
