@@ -7,7 +7,9 @@
     ]"
   >
     <form @submit.prevent="handleSubmit">
-      <h1>Login</h1>
+      <h1>Register</h1>
+      <label>Username</label>
+      <input type="text" v-model="username" required />
       <label>Email</label>
       <input type="email" v-model="email" required />
       <label>Password</label>
@@ -29,9 +31,9 @@
     </form>
   </div>
 </template>
-
 <script>
 export default {
+  name: "Register",
   name: "SignIn",
   components: {},
   data() {
@@ -59,7 +61,6 @@ export default {
       console.log({ email: this.email, password: this.password });
     },
   },
-  computed: {},
 };
 </script>
 <style scoped>
@@ -125,4 +126,4 @@ export default {
   font-weight: bold;
   font-size: 0.5;
 }
-</style>>
+</style>
