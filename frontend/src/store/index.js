@@ -1,17 +1,16 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-
-Vue.use(Vuex)
+import Vue from "vue";
+import Vuex from "vuex";
+import auth from "./modules/auth.js";
+import createPersistedState from "vuex-persistedstate";
+Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+  state: {},
+  getters: {},
+  mutations: {},
+  actions: {},
   modules: {
-  }
-})
+    auth,
+  },
+  plugins: [createPersistedState],
+});
