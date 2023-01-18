@@ -9,11 +9,11 @@
     <form @submit.prevent="handleSubmit">
       <h1>Login</h1>
       <label>Email</label>
-      <input type="email" v-model="email" required />
+      <input type="email" v-model="user.email" required />
       <label>Password</label>
       <input
         type="password"
-        v-model="password"
+        v-model="user.password"
         @keydown.space.prevent
         required
       />
@@ -31,14 +31,17 @@
 </template>
 
 <script>
+import auth from "@/services/authServices.js";
 export default {
   name: "SignIn",
   components: {},
   data() {
     return {
       isHover: false,
-      email: null,
-      password: null,
+      user: {
+        email: null,
+        password: null,
+      },
       errors: {
         checkPassword: true,
       },
@@ -56,7 +59,14 @@ export default {
       if (!this.errors.checkPassword) {
         return;
       }
-      console.log({ email: this.email, password: this.password });
+      auth.Login(this.user).then((user, err) => {
+        if (err) return console.log(err);
+
+        localStorage.setItem("isAuth", true);
+        this.$store.dispatch("SET_TOKEN", user.data.accessToken);
+        this.$router.push({ name: "dashboard" });
+        console.log({ user });
+      });
     },
   },
   computed: {},

@@ -41,6 +41,7 @@ export default {
       isHover: false,
       email: null,
       password: null,
+      username: null,
       errors: {
         checkPassword: true,
       },
