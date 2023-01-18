@@ -5,20 +5,22 @@ export const createToken = (payload) => {
     expiresIn: "30s",
   });
   const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
-    expiresIn: "1d",
+    expiresIn: "1m",
   });
 
   return { accessToken, refreshToken };
 };
 
 export const createRefreshToken = (refreshToken) => {
-  console.log(refreshToken);
-  const user = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-  if (!user) throw { code: 403, msg: "Expired token" };
-  const payload = {
-    userId: user.userId,
-    username: user.username,
-    email: user.email,
-  };
-  return createToken(payload);
+  try {
+    const user = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    const payload = {
+      userId: user.userId,
+      username: user.username,
+      email: user.email,
+    };
+    return createToken(payload);
+  } catch (error) {
+    throw { code: 403, msg: "Expired token" };
+  }
 };

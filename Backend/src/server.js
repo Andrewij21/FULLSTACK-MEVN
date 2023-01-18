@@ -17,7 +17,8 @@ mongoose.connect(process.env.MONGO_URL, () => console.info("Connect to DB"));
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ credentials: true, origin: "*" }));
+app.use(cors({ credentials: true, origin: true }));
+// app.options("*", cors({ credentials: true, origin: true }));
 app.use(routes);
 
 app.listen(PORT, () => console.info("Server is listening...."));
