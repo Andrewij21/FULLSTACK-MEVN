@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "@/store/index.js";
+import isAuth from "@/middleware/auth.js";
 
 Vue.use(VueRouter);
 
@@ -44,8 +45,14 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  const auth = JSON.parse(localStorage.getItem("isAuth"));
+router.beforeEach(async (to, from, next) => {
+  // const auth = JSON.parse(localStorage.getItem("isAuth"));
+  let auth = store.state.auth.login;
+  if (!auth) {
+    await isAuth.isAuth().then((val) => {
+      auth = val;
+    });
+  }
   console.log({ to, auth });
   if (to.matched.some((record) => record.meta.requireAuth)) {
     !auth ? next("/login") : next();

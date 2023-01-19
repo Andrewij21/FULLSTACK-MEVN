@@ -7,4 +7,7 @@ export default {
   refreshToken() {
     return api.get("user/refresh");
   },
+  userCheck() {
+    return api.get("user/check");
+  },
 };
