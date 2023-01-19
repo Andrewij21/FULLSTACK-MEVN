@@ -24,3 +24,12 @@ export const createRefreshToken = (refreshToken) => {
     throw { code: 403, msg: "Expired token" };
   }
 };
+
+export const checkRefreshToken = (Rt) => {
+  try {
+    jwt.verify(Rt, process.env.REFRESH_TOKEN_SECRET);
+    return { code: 200, status: true, msg: "is user" };
+  } catch (error) {
+    return { code: 403, status: false, msg: "Expired token" };
+  }
+};

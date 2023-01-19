@@ -1,6 +1,10 @@
 import user from "../models/user_model.js";
 import bcrypt from "bcrypt";
-import { createToken, createRefreshToken } from "../helpers/jwt.js";
+import {
+  createToken,
+  createRefreshToken,
+  checkRefreshToken,
+} from "../helpers/jwt.js";
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -48,6 +52,20 @@ export const logout = (req, res) => {
   try {
     res.clearCookie("refresh_token");
     res.status(200).json({ status: 200, message: "refresh token deleted" });
+  } catch (error) {
+    res.status(error.code || 500).json({
+      status: error.code || 500,
+      message: error.msg || error.toString(),
+    });
+  }
+};
+
+export const checkUser = (req, res) => {
+  try {
+    const RT = req.cookies.refresh_token;
+    if (!RT) throw { code: 401, msg: "Null token" };
+    const isUser = checkRefreshToken(RT);
+    res.status(200).json({ status: 200, status: isUser.status });
   } catch (error) {
     res.status(error.code || 500).json({
       status: error.code || 500,
