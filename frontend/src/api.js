@@ -39,6 +39,7 @@ instence.interceptors.response.use(
   },
   function (error) {
     const originalRequest = error.config;
+    console.log({ res: "res", error });
 
     // CEK USER
     if (originalRequest.url == "user/check") {
@@ -69,7 +70,7 @@ instence.interceptors.response.use(
         }
       });
     }
-    return error;
+    return Promise.reject(error);
   }
 );
 
