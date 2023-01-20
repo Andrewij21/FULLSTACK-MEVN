@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 style="text-align: center">Dashboardss</h1>
+    <h1 style="text-align: center; color: aliceblue">Dashboard</h1>
     <router-view />
   </div>
 </template>

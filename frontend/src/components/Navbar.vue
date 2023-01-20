@@ -3,7 +3,7 @@
     <nav>
       <router-link v-show="!isLogin" to="/login">Sign In</router-link>
       <router-link v-show="!isLogin" to="/register">Sign Up</router-link>
-      <button v-show="isLogin" @click="logout">Sign Up</button>
+      <button v-show="isLogin" @click="logout">Logout</button>
     </nav>
   </div>
 </template>
