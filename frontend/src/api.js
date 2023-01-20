@@ -40,13 +40,18 @@ instence.interceptors.response.use(
   function (error) {
     const originalRequest = error.config;
 
+    // CEK USER
+    if (originalRequest.url == "user/check") {
+      return error;
+    }
     // CEK REFRESH TOKEN STATUS
     if (
       (error.response.status == 403 || error.response.status == 401) &&
       originalRequest.url === "user/refresh"
     ) {
       console.log("ExpiredToken");
-      localStorage.removeItem("isAuth");
+      // localStorage.removeItem("isAuth");
+      store.dispatch("SET_LOGIN", false);
       router.push({ path: "/login" });
       return error;
     }

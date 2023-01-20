@@ -62,7 +62,9 @@ export default {
       auth.Login(this.user).then((user, err) => {
         if (err) return console.log(err);
 
-        localStorage.setItem("isAuth", true);
+        // localStorage.setItem("isAuth", true);
+
+        this.$store.dispatch("SET_LOGIN", true);
         this.$store.dispatch("SET_TOKEN", user.data.accessToken);
         this.$router.push({ name: "dashboard" });
         console.log({ user });
