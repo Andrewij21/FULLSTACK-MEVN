@@ -10,4 +10,7 @@ export default {
   userCheck() {
     return api.get("user/check");
   },
+  logOut() {
+    return api.delete("user/logout");
+  },
 };
