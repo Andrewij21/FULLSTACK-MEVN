@@ -17,6 +17,7 @@
         @keydown.space.prevent
         required
       />
+      <p v-show="errors.invalid">Email or password is incorrect</p>
       <p v-show="!errors.checkPassword">Please insert password</p>
       <input
         type="submit"
@@ -44,6 +45,7 @@ export default {
       },
       errors: {
         checkPassword: true,
+        invalid: false,
       },
     };
   },
@@ -59,16 +61,21 @@ export default {
       if (!this.errors.checkPassword) {
         return;
       }
-      auth.Login(this.user).then((user, err) => {
-        if (err) return console.log(err);
-
-        // localStorage.setItem("isAuth", true);
-
-        this.$store.dispatch("SET_LOGIN", true);
-        this.$store.dispatch("SET_TOKEN", user.data.accessToken);
-        this.$router.push({ name: "dashboard" });
-        console.log({ user });
-      });
+      auth
+        .Login(this.user)
+        .then((user) => {
+          // KETIKA ERROR BELUM DI
+          // localStorage.setItem("isAuth", true);
+          this.errors.invalid = false;
+          this.$store.dispatch("SET_LOGIN", true);
+          this.$store.dispatch("SET_TOKEN", user.data.accessToken);
+          this.$router.push({ name: "dashboard" });
+          console.log({ user });
+        })
+        .catch((err) => {
+          this.errors.invalid = true;
+          console.log({ err });
+        });
     },
   },
   computed: {},
