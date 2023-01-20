@@ -9,13 +9,14 @@
     <form @submit.prevent="handleSubmit">
       <h1>Register</h1>
       <label>Username</label>
-      <input type="text" v-model="username" required />
+      <input type="text" v-model="user.username" required />
       <label>Email</label>
-      <input type="email" v-model="email" required />
+      <input type="email" v-model="user.email" required />
+      <p v-show="errors.isEmailExist">Email already exist !!!</p>
       <label>Password</label>
       <input
         type="password"
-        v-model="password"
+        v-model="user.password"
         @keydown.space.prevent
         required
       />
@@ -32,6 +33,7 @@
   </div>
 </template>
 <script>
+import User from "@/services/userServices";
 export default {
   name: "Register",
   name: "SignIn",
@@ -39,16 +41,19 @@ export default {
   data() {
     return {
       isHover: false,
-      email: null,
-      password: null,
-      username: null,
+      user: {
+        email: null,
+        password: null,
+        username: null,
+      },
       errors: {
         checkPassword: true,
+        isEmailExist: false,
       },
     };
   },
   watch: {
-    password(msg) {
+    "user.password"(msg) {
       msg.split(" ").join("") == ""
         ? (this.errors.checkPassword = false)
         : (this.errors.checkPassword = true);
@@ -59,7 +64,17 @@ export default {
       if (!this.errors.checkPassword) {
         return;
       }
-      console.log({ email: this.email, password: this.password });
+      User.create(this.user)
+        .then((val) => {
+          this.errors.isEmailExist = false;
+          this.$router.push({ path: "/login" });
+          console.log({ val });
+        })
+        .catch((err) => {
+          this.errors.isEmailExist = true;
+          console.log({ err });
+        });
+      console.log({ user: this.user });
     },
   },
 };
@@ -126,5 +141,6 @@ export default {
   color: rgba(255, 9, 29, 0.982);
   font-weight: bold;
   font-size: 0.5;
+  margin: 3px 0;
 }
 </style>
