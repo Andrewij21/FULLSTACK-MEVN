@@ -1,8 +1,16 @@
 <template>
-  <div class="navbar">
+  <div :class="[isLogin ? '' : '', 'navbar']">
     <nav>
       <router-link v-show="!isLogin" to="/login">Sign In</router-link>
       <router-link v-show="!isLogin" to="/register">Sign Up</router-link>
+      <div class="content">
+        <router-link v-show="isLogin" class="login" to="/dashboard"
+          >My Project</router-link
+        >
+        <router-link v-show="isLogin" class="login" to="/dashboard/project"
+          >Team Project</router-link
+        >
+      </div>
       <button v-show="isLogin" @click="logout">Logout</button>
     </nav>
   </div>
@@ -44,18 +52,25 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .navbar {
-  margin-top: 14px;
+  position: relative;
+  width: 100%;
+}
+nav {
+  /* margin-top: 14px; */
   display: flex;
   flex-wrap: wrap;
-  position: fixed;
   width: 100%;
   justify-content: end;
+  color: #000;
+  font-size: 1em;
+  background: #f5f5f5;
+  padding: 5px;
 }
 nav a,
 button {
   font-size: 16px;
   letter-spacing: 2px;
-  color: #fff;
+  /* color: #fff; */
   text-decoration: none;
   margin: 0 5px;
   padding: 10px;
@@ -64,6 +79,10 @@ button {
   cursor: pointer;
 }
 
+nav .content {
+  align-self: center;
+  flex: 1;
+}
 /* nav a:hover {
   border: 2px solid rgb(17, 77, 24); 
   background-color: rgb(17, 77, 24);

@@ -1,14 +1,14 @@
 <template>
   <div class="container">
-    <router-view />
+    <h1 style="text-align: center; color: aliceblue">Home</h1>
   </div>
 </template>
-
-<script>
+  
+  <script>
 import userServices from "@/services/userServices";
 export default {
   mounted() {
-    // this.getData();
+    this.getData();
   },
   methods: {
     getData() {
@@ -20,6 +20,6 @@ export default {
   },
 };
 </script>
-
-<style  >
+  
+  <style>
 </style>

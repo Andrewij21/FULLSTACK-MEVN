@@ -19,9 +19,16 @@ const routes = [
     meta: { requireAuth: true },
     children: [
       {
+        path: "",
+        name: "home",
+        component: () => import("@/views/Home.vue"),
+        meta: { requireAuth: true },
+      },
+      {
         path: "project",
         name: "project",
         component: () => import("@/views/Project"),
+        meta: { requireAuth: true },
       },
     ],
   },
@@ -51,9 +58,10 @@ router.beforeEach(async (to, from, next) => {
   if (!auth) {
     await isAuth.isAuth().then((val) => {
       auth = val;
+      store.dispatch("SET_LOGIN", val);
     });
   }
-  console.log({ to, auth });
+  // console.log({ to, auth });
   if (to.matched.some((record) => record.meta.requireAuth)) {
     !auth ? next("/login") : next();
   } else {
