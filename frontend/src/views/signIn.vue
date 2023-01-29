@@ -69,7 +69,7 @@ export default {
           this.errors.invalid = false;
           this.$store.dispatch("SET_LOGIN", true);
           this.$store.dispatch("SET_TOKEN", user.data.accessToken);
-          this.$router.push({ name: "dashboard" });
+          this.$router.push({ name: "home" });
           console.log({ user });
         })
         .catch((err) => {
