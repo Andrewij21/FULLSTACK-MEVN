@@ -1,5 +1,5 @@
 <template>
-  <div :class="[isLogin ? '' : '', 'navbar']">
+  <div :class="[isLogin ? 'onNavbar' : '', 'navbar']">
     <nav>
       <router-link v-show="!isLogin" to="/login">Sign In</router-link>
       <router-link v-show="!isLogin" to="/register">Sign Up</router-link>
@@ -37,7 +37,7 @@ export default {
           this.$router.push({ path: "/login" });
         })
         .catch((e) => {
-          console.error({ e });
+          console.error(e);
         });
     },
   },
@@ -55,22 +55,24 @@ export default {
   position: relative;
   width: 100%;
 }
+.onNavbar {
+  /* background: none; */
+  background: rgb(0, 0, 0, 0.4);
+}
 nav {
   /* margin-top: 14px; */
   display: flex;
   flex-wrap: wrap;
   width: 100%;
   justify-content: end;
-  color: #000;
-  font-size: 1em;
-  background: #f5f5f5;
   padding: 5px;
 }
 nav a,
 button {
-  font-size: 16px;
+  font-size: 1em;
+  /* font-size: 16px; */
   letter-spacing: 2px;
-  /* color: #fff; */
+  color: #fff;
   text-decoration: none;
   margin: 0 5px;
   padding: 10px;
